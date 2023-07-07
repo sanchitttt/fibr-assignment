@@ -27,3 +27,8 @@ export const validSVG = (type: QuestionType) => {
         return YesNoSVG
     }
 }
+
+export function slicedQuestion(value: string) {
+    const sliced = value.slice(0, 20);
+    return value.length >= 20 ? sliced + '...' : sliced;
+}

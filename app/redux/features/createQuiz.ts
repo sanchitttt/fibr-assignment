@@ -41,12 +41,14 @@ export type Question = MultipleChoiceQuestion | ShortTextQuestion | YesNoQuestio
 
 interface InitialState {
     questions: Question[],
-    selectedQuestion: Question | null
+    selectedQuestion: Question | null,
+    quizName: string
 }
 
 const initialState: InitialState = {
     questions: [],
-    selectedQuestion: null
+    selectedQuestion: null,
+    quizName: 'Quiz 1'
 }
 
 const createQuizSlice = createSlice({
@@ -170,6 +172,21 @@ const createQuizSlice = createSlice({
                     break;
                 }
             }
+        },
+        updateQuestion(state, payload: PayloadAction<{ id: string, value: string }>) {
+            for (let i = 0; i < state.questions.length; i++) {
+                const item = state.questions[i];
+                if (item.id === payload.payload.id) {
+                    item.question = payload.payload.value;
+                    if (state.selectedQuestion) {
+                        state.selectedQuestion.question = payload.payload.value;
+                    }
+                }
+                break;
+            }
+        },
+        changeQuizName(state, payload: PayloadAction<string>) {
+            state.quizName = payload.payload;
         }
     }
 })

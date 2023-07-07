@@ -1,14 +1,60 @@
+'use client';
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import { EyeIcon } from '../components/icons'
 import { Tooltip } from 'react-tooltip'
+import { useAppDispatch, useAppSelector } from '../hooks';
+import createQuizSlice from '../redux/features/createQuiz';
 
 function CreatePageNavbar({
     quizName, profilePicture
 }: { quizName: string, profilePicture: string | null | undefined }) {
+    const [editingMode, setEditingMode] = useState(false);
+    const { quizName: quizNameFromStore } = useAppSelector((state) => state.createQuiz);
+    const { changeQuizName } = createQuizSlice.actions;
+    const dispatch = useAppDispatch();
     return (
-        <nav className='px-[15px] flex items-center justify-between min-h-[48px] bg-white border-b-[1px] border-[#00000012]'>
-            <div className='font-bold'>{quizName}</div>
+        <nav className='px-[15px] flex items-center justify-between min-h-[48px] bg-white border-b-[1px] border-[#00000012] z-[2000]'>
+            <div className='flex items-center gap-[10px]'>
+                {editingMode ?
+                    <>
+                        <input
+                            type='text'
+                            value={quizNameFromStore}
+                            onChange={(e) => dispatch(changeQuizName(e.target.value))}
+                        />
+                        <button className='w-[32px] h-[32px] flex items-center justify-center bg-[#e3e3e3] rounded-[4px]'
+                            data-tooltip-id="saveQuizName" data-tooltip-content="Save quiz name"
+                            onClick={() => setEditingMode(false)}
+                        >
+                            <Image
+
+                                src='/SaveIcon.svg'
+                                width={14}
+                                height={14}
+                                alt='Save changes'
+                            />
+                        </button>
+                    </>
+                    :
+                    <>
+                        <div className='font-bold'>{quizNameFromStore}</div>
+                        <button className='w-[32px] h-[32px] flex items-center justify-center bg-[#e3e3e3] rounded-[4px]'
+                            data-tooltip-id="editQuizName" data-tooltip-content="Change quiz name"
+                            onClick={() => setEditingMode(true)}
+                        >
+                            <Image
+
+                                src='/PencilEdit.svg'
+                                width={14}
+                                height={14}
+                                alt='Edit quiz name'
+                            />
+                        </button>
+                    </>
+                }
+
+            </div>
             <div className='flex justify-between items-center gap-[15px]'>
                 <button className='w-[32px] h-[32px] bg-[#e3e3e3] rounded-[4px] flex items-center justify-center pointer'
                     data-tooltip-id="preview" data-tooltip-content="Show preview"
@@ -61,6 +107,8 @@ function CreatePageNavbar({
             </div>
             <Tooltip id='preview' />
             <Tooltip id='publish' />
+            <Tooltip id='editQuizName' />
+            <Tooltip id='saveQuizName' />
         </nav>
     )
 }

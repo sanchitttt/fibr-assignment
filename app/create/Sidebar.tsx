@@ -5,7 +5,7 @@ import QuestionDialog from './QuestionDialog'
 import { useAppDispatch, useAppSelector } from '../hooks';
 import createQuizSlice from '../redux/features/createQuiz';
 import { Reorder } from 'framer-motion';
-import { validColor, validSVG } from '../utils';
+import { slicedQuestion, validColor, validSVG } from '../utils';
 
 
 
@@ -48,7 +48,7 @@ function Sidebar() {
                                         {validSVG(item.type)}
                                         <div className='text-[14px] font-bold'>{idx + 1}</div>
                                     </div>
-                                    <div className='text-[12px] w-[60%] text-right'>{item.question}</div>
+                                    <div className='text-[12px] w-[60%] text-right'>{slicedQuestion(item.question)}</div>
                                 </button>
                             </Reorder.Item>
                         })}
