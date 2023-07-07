@@ -11,3 +11,12 @@ input:focus {
     outline: none;
 }
 
+.hover-border:hover {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid black;
+}
+
+.switch[data-isOn="true"] {
+    justify-content: flex-end;
+    background-color: #0487AF;
+}

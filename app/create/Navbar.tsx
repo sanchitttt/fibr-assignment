@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import React from 'react'
-import { EyeIcon } from '../icons'
+import { EyeIcon } from '../components/icons'
 import { Tooltip } from 'react-tooltip'
 
 function CreatePageNavbar({
     quizName, profilePicture
 }: { quizName: string, profilePicture: string | null | undefined }) {
     return (
-        <nav className='px-[15px] flex items-center justify-between h-[48px] bg-white border-b-[1px] border-[#00000012]'>
+        <nav className='px-[15px] flex items-center justify-between min-h-[48px] bg-white border-b-[1px] border-[#00000012]'>
             <div className='font-bold'>{quizName}</div>
             <div className='flex justify-between items-center gap-[15px]'>
                 <button className='w-[32px] h-[32px] bg-[#e3e3e3] rounded-[4px] flex items-center justify-center pointer'

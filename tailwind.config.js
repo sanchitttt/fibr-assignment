@@ -22,7 +22,8 @@ module.exports = {
         grey: '#757575'
       },
       boxShadow: {
-        v1: 'rgba(0, 0, 0, 0.08) 0px 2px 4px, rgba(0, 0, 0, 0.06) 0px 2px 12px'
+        v1: 'rgba(0, 0, 0, 0.08) 0px 2px 4px, rgba(0, 0, 0, 0.06) 0px 2px 12px',
+        v2: 'rgba(0, 0, 0, 0.04) 0px 8px 14px, rgba(0, 0, 0, 0.02) 0px 12px 16px'
       }
     },
   },
