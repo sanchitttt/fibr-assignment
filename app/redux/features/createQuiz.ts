@@ -187,6 +187,89 @@ const createQuizSlice = createSlice({
         },
         changeQuizName(state, payload: PayloadAction<string>) {
             state.quizName = payload.payload;
+        },
+        updateCorrectChoiceInMultipleChoiceQuestion(state, payload: PayloadAction<{ id: string, correctChoice: string }>) {
+            for (let i = 0; i < state.questions.length; i++) {
+                const item = state.questions[i];
+                if (item.id === payload.payload.id) {
+                    if (item.type === 'Multiple Choice') {
+                        item.correctChoice = payload.payload.correctChoice;
+                        if (state.selectedQuestion) {
+                            if (state.selectedQuestion.type === 'Multiple Choice') {
+                                state.selectedQuestion.correctChoice = payload.payload.correctChoice;
+                            }
+                        }
+
+                    }
+                }
+            }
+        },
+        manageChoicesInMultipleChoiceQuestion(state, payload: PayloadAction<{ id: string, choice?: number, type: 'add' | 'remove' }>) {
+            for (let i = 0; i < state.questions.length; i++) {
+                const item = state.questions[i];
+                if (item.id === payload.payload.id) {
+                    console.log(item);
+                    if (item.type === 'Multiple Choice') {
+                        if (payload.payload.type === 'remove') {
+                            if (item.choices.length > 1) {
+                                const filteredChoices = item.choices.filter((prevChoice, idx) => {
+                                    if (idx !== payload.payload.choice) return prevChoice;
+                                })
+                                item.choices = filteredChoices;
+                                if (state.selectedQuestion) {
+                                    if (state.selectedQuestion.type === 'Multiple Choice') {
+                                        state.selectedQuestion.choices = filteredChoices;
+                                    }
+                                }
+                            }
+                        }
+                        if (payload.payload.type === 'add') {
+                            item.choices.push(`Choice ${item.choices.length}`);
+                            if (state.selectedQuestion) {
+                                if (state.selectedQuestion.type === 'Multiple Choice') {
+                                    state.selectedQuestion.choices.push(`Choice ${item.choices.length}`)
+                                }
+                            }
+                        }
+
+                    }
+                    break;
+                }
+            }
+        },
+        updateChoiceNameInMultipleChoiceQuestion(state, payload: PayloadAction<{ id: string, idx: number, value: string }>) {
+            for (let i = 0; i < state.questions.length; i++) {
+                const item = state.questions[i];
+                if (item.id === payload.payload.id) {
+                    if (item.type === 'Multiple Choice') {
+                        item.choices[payload.payload.idx] = payload.payload.value;
+                    }
+                    if (state.selectedQuestion) {
+                        if (state.selectedQuestion.type === 'Multiple Choice') {
+                            state.selectedQuestion.choices[payload.payload.idx] = payload.payload.value;
+                        }
+                    }
+                }
+                break;
+            }
+        },
+        updateChoiceInYesNoQuestion(state, payload: PayloadAction<{ id: string, type: 'yes' | 'no', value: string | null }>) {
+            if (payload.payload.value) {
+                for (let i = 0; i < state.questions.length; i++) {
+                    const item = state.questions[i];
+                    if (item.id === payload.payload.id) {
+                        if (item.type === 'Yes/No') {
+                            item[`${payload.payload.type}`] = payload.payload.value;
+                        }
+                        if (state.selectedQuestion) {
+                            if (state.selectedQuestion.type === 'Yes/No') {
+                                state.selectedQuestion[`${payload.payload.type}`] = payload.payload.value;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 })

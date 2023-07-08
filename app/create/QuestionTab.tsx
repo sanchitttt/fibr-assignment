@@ -14,6 +14,7 @@ function QuestionTab() {
     const dispatch = useAppDispatch();
     const { selectedQuestion } = useAppSelector((state) => state.createQuiz);
     const { updateRequiredStatus, updatedMaxCharacters, updateMaxCharactersLength } = createQuizSlice.actions;
+
     return (
         <div className='w-[100%] flex flex-col text-[14px]'>
             {selectedQuestion &&
@@ -55,6 +56,24 @@ function QuestionTab() {
                                 }
 
                             </>
+                        }
+                        {selectedQuestion.type === 'Multiple Choice' &&
+                            <div className='flex justify-between w-[90%] items-center'>
+                                <div>Correct choice</div>
+                                <select name='multipleChoice'
+                                    className='py-[5px]'
+                                >
+                                    {selectedQuestion.choices.map((item) => {
+                                        return <option
+                                            key={item}
+                                            value={selectedQuestion.correctChoice}
+                                        // onClick={() => dispatch()}
+                                        >
+                                            {item}
+                                        </option>
+                                    })}
+                                </select>
+                            </div>
                         }
                     </div>
                 </>

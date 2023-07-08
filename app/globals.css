@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 
-input {
+input,
+textarea {
     background-color: transparent;
 }
 

@@ -28,7 +28,6 @@ function CreatePageNavbar({
                             onClick={() => setEditingMode(false)}
                         >
                             <Image
-
                                 src='/SaveIcon.svg'
                                 width={14}
                                 height={14}
@@ -44,7 +43,6 @@ function CreatePageNavbar({
                             onClick={() => setEditingMode(true)}
                         >
                             <Image
-
                                 src='/PencilEdit.svg'
                                 width={14}
                                 height={14}
@@ -109,6 +107,7 @@ function CreatePageNavbar({
             <Tooltip id='publish' />
             <Tooltip id='editQuizName' />
             <Tooltip id='saveQuizName' />
+            <Tooltip id='DeleteChoice' />
         </nav>
     )
 }
