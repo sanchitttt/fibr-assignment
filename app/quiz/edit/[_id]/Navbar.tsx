@@ -110,7 +110,7 @@ function CreatePageNavbar({
                     onClick={() => {
                         router.push(process.env.NODE_ENV === 'development' ?
                             `http://localhost:3000/quiz/responses/${pathName}` :
-                            `https://fibr-assignment/quiz/responses/${pathName}`)
+                            `https://fibr-assignment.vercel.app/quiz/responses/${pathName}`)
                     }}
                 >
                     <Image
@@ -125,7 +125,7 @@ function CreatePageNavbar({
                     onClick={() => {
                         router.push(process.env.NODE_ENV === 'development' ?
                             `http://localhost:3000/quiz/view/${pathName}` :
-                            `https://fibr-assignment/quiz/view/${pathName}`)
+                            `https://fibr-assignment.vercel.app/quiz/view/${pathName}`)
                     }}
                 >
                     <EyeIcon />
@@ -136,7 +136,7 @@ function CreatePageNavbar({
                         if (navigator.clipboard) {
                             const textToCopy = process.env.NODE_ENV === 'development' ?
                                 `http://localhost:3000/quiz/view/${pathName}` :
-                                `https://fibr-assignment/quiz/view/${pathName}`
+                                `https://fibr-assignment.vercel.app/quiz/view/${pathName}`
                             // The text you want to copy
 
                             // Copy the text to the clipboard
@@ -144,7 +144,7 @@ function CreatePageNavbar({
                         }
                     }}
                 >
-                    🔗
+                     🔗
                 </button>
                 <button className='bg-black text-white text-[14px] rounded-[4px] flex items-center justify-center w-[68px] h-[32px] mr-[30px]'
                     data-tooltip-id="publish" data-tooltip-content="Make your changes visible to the world"
