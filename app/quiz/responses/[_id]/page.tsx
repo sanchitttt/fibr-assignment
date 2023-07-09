@@ -46,14 +46,14 @@ function ViewResponses() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data?.data.responseDetails.map((details) => {
-                        return details.map((item, idx) => {
+                    {data?.data.responseDetails.map((details: any) => {
+                        return details.map((item: any, idx: number) => {
                             console.log(item)
                             return <TableRow
                                 key={idx}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell  align="center" component="th" scope="row">
+                                <TableCell align="center" component="th" scope="row">
                                     {idx}
                                 </TableCell>
                                 <TableCell align="center">{item.submittedBy}</TableCell>
