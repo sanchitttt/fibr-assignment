@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Problem Statement
+Fibr Quiz: Create API for a quiz app
 
-## Getting Started
+- A user (creator)should be able to log in and create multiple quizzes. Questions in the quiz are multiple choice questions with one or more correct answers. User should be able to share the quiz with other.
 
-First, run the development server:
+- Others (participants)can take the quiz, using the link shared by the creator and will be awarded score based on the results. The creator should be able to view the list of participants and their scores.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+The objective is to create a restful API for a quiz app. For authentication, you can use any third party like autho or cognito if needed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Make sure you commit code to GitHub at regular intervals. Adding unit tests will be a bonus.
+Please make sure you deploy this and share the running instance, and Postman collection to verify it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Technologies Used
+    - MongoDB
+    - Mongoose
+    - Express.js
+    - Node.js
+    - Bcrypt
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    - Next.js
+    - React Query
+    - Redux Toolkit
+    - Material UI
+    - Framer Motion 
+    - Tailwind CSS
+    - React Spinners
+    - React Hot Toast
+    - React Tooltip 
