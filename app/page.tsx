@@ -25,6 +25,7 @@ export default function Home() {
     </main>
   }
   return (
+    
     <main className='w-[100%] h-[100vh] flex flex-col'>
       <div>
         <Navbar email={session?.user?.email} profilePicture={session?.user?.image} />

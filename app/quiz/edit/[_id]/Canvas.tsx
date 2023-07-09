@@ -1,8 +1,8 @@
 'use client';
 import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks';
-import createQuizSlice from '../redux/features/createQuiz';
-import { CancelIcon } from '../components/icons';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import createQuizSlice from '../../../redux/features/editQuiz';
+import { CancelIcon } from '../../../components/icons';
 import Image from 'next/image';
 import { Tooltip } from 'react-tooltip';
 
@@ -18,7 +18,7 @@ type YesNoEdit = {
 }
 
 function Canvas() {
-  const { selectedQuestion } = useAppSelector((state) => state.createQuiz);
+  const { selectedQuestion, questions } = useAppSelector((state) => state.createQuiz);
   const dispatch = useAppDispatch();
   const { updateQuestion,
     manageChoicesInMultipleChoiceQuestion,
@@ -32,7 +32,6 @@ function Canvas() {
 
   if (selectedQuestion) {
     if (selectedQuestion.type === 'Short Text' || selectedQuestion.type === 'Long Text') {
-      console.log('executed 1')
       return (
         <div className='w-[100%] flex items-center  justify-center '>
           <div className='w-[90%] h-[70%]  shadow-v1 rounded-[4px] flex  items-center justify-center bg-skin'>

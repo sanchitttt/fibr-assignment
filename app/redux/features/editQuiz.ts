@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import config from '@/app/config/config';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export type QuestionType = "Multiple Choice" | "Short Text" | "Long Text" | "Yes/No";
 
@@ -42,14 +44,26 @@ export type Question = MultipleChoiceQuestion | ShortTextQuestion | YesNoQuestio
 interface InitialState {
     questions: Question[],
     selectedQuestion: Question | null,
-    quizName: string
+    quizName: string,
+    broken: boolean,
+    loading: boolean
 }
+
+export const fetchQuiz = createAsyncThunk("fetchQuiz", async (id) => {
+    const pathname = window.location.pathname.split('/');
+    const response = await axios.get(`${config.BACKEND_ENDPOINT}/quiz/${pathname[3]}`);
+    return response.data;
+});
 
 const initialState: InitialState = {
     questions: [],
     selectedQuestion: null,
-    quizName: 'Quiz 1'
+    quizName: 'Quiz 1',
+    broken: false,
+    loading: false
 }
+
+
 
 const createQuizSlice = createSlice({
     name: 'create-quiz',
@@ -181,8 +195,9 @@ const createQuizSlice = createSlice({
                     if (state.selectedQuestion) {
                         state.selectedQuestion.question = payload.payload.value;
                     }
+                    break;
                 }
-                break;
+
             }
         },
         changeQuizName(state, payload: PayloadAction<string>) {
@@ -208,7 +223,6 @@ const createQuizSlice = createSlice({
             for (let i = 0; i < state.questions.length; i++) {
                 const item = state.questions[i];
                 if (item.id === payload.payload.id) {
-                    console.log(item);
                     if (item.type === 'Multiple Choice') {
                         if (payload.payload.type === 'remove') {
                             if (item.choices.length > 1) {
@@ -249,8 +263,9 @@ const createQuizSlice = createSlice({
                             state.selectedQuestion.choices[payload.payload.idx] = payload.payload.value;
                         }
                     }
+                    break;
                 }
-                break;
+
             }
         },
         updateChoiceInYesNoQuestion(state, payload: PayloadAction<{ id: string, type: 'yes' | 'no', value: string | null }>) {
@@ -271,6 +286,23 @@ const createQuizSlice = createSlice({
             }
 
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchQuiz.pending, (state, action) => {
+            state.loading = true;
+            // state.questions = action.payload.questions;
+        }),
+            builder.addCase(fetchQuiz.fulfilled, (state, action) => {
+                state.questions = action.payload.questions;
+                state.quizName = action.payload.quizName;
+                if (action.payload.questions.length) state.selectedQuestion = action.payload.questions[0]
+                state.loading = false;
+                // state.questions = action.payload.questions;
+            }),
+            builder.addCase(fetchQuiz.rejected, (state, action) => {
+                state.broken = true;
+                state.loading = false;
+            })
     }
 })
 

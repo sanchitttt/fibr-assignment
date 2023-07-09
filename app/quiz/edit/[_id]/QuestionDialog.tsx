@@ -1,7 +1,7 @@
 import React from 'react'
-import createQuizSlice, { QuestionType } from '../redux/features/createQuiz';
-import { useAppDispatch } from '../hooks';
-import { CancelIcon } from '../components/icons';
+import createQuizSlice, { QuestionType } from '../../../redux/features/editQuiz';
+import { useAppDispatch } from '../../../hooks';
+import { CancelIcon } from '../../../components/icons';
 import { v4 as uuid } from 'uuid';
 
 interface Questions {

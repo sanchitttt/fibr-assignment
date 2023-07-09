@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks'
-import { validColor } from '../utils';
+import { useAppDispatch, useAppSelector } from '../../../hooks'
+import { validColor } from '../../../utils';
 import { motion } from 'framer-motion';
-import createQuizSlice from '../redux/features/createQuiz';
+import createQuizSlice from '../../../redux/features/editQuiz';
 
 const spring = {
     type: "spring",

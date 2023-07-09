@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { Tooltip } from 'react-tooltip'
 import QuestionDialog from './QuestionDialog'
-import { useAppDispatch, useAppSelector } from '../hooks';
-import createQuizSlice from '../redux/features/createQuiz';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import createQuizSlice from '../../../redux/features/editQuiz';
 import { Reorder } from 'framer-motion';
-import { slicedQuestion, validColor, validSVG } from '../utils';
+import { slicedQuestion, validColor, validSVG } from '../../../utils';
 
 
 
@@ -15,7 +15,6 @@ function Sidebar() {
     const { questions, selectedQuestion } = useAppSelector((state) => state.createQuiz)
     const { changeSelectedQuestion } = createQuizSlice.actions;
     const dispatch = useAppDispatch();
-    console.log(selectedQuestion);
     return (
         <aside className='w-[256px] h-[100%] bg-white border-r-[1px] border-[#00000012]  flex flex-col items-center justify-center relative'>
             <div className='w-[100%] h-[90%]'>
@@ -59,6 +58,7 @@ function Sidebar() {
             <QuestionDialog open={showQuestionDialogue} closeDialog={() => setShowQuestionDialogue(false)} />
             <Tooltip id='addQuestion' />
             <Tooltip id='Cancel' />
+
         </aside>
     )
 }

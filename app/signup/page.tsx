@@ -3,9 +3,37 @@ import React, { useState } from 'react'
 import EmailInput from '../components/inputs/EmailInput'
 import PasswordInput from '../components/inputs/PasswordInput'
 import Link from 'next/link';
+import validator from 'validator';
+import toast, { Toaster } from 'react-hot-toast';
+import axios, { AxiosError } from 'axios';
+import config from '../config/config';
+import { accountCreated, accountExists, invalidEmail, invalidPassword, validEmail } from '../utils';
+
+
+
+const initialState = { email: '', password: '' }
 
 function Signup() {
-    const [credentialLogin, setCredentialLogin] = useState({ email: '', password: '' })
+    const [credentialLogin, setCredentialLogin] = useState(initialState)
+
+    const createAccountHandler = () => {
+        const { email, password } = credentialLogin;
+        if (!validEmail(email)) invalidEmail();
+        else if (password.length <= 7) invalidPassword()
+        else {
+            const signup = async () => {
+                try {
+                    await axios.post(`${config.BACKEND_ENDPOINT}/user/signup`, credentialLogin);
+                    accountCreated();
+                    setCredentialLogin(initialState);
+                } catch (error: AxiosError | any) {
+                    if (error.response.status === 409) accountExists();
+                }
+            }
+            signup()
+        }
+    }
+
     return (
         <main className='w-[100vw] h-[100vh] flex items-center justify-center'>
             <div className='w-[100%] h-[100%] max-w-[512px] flex justify-center items-center flex-col'>
@@ -26,7 +54,9 @@ function Signup() {
                     </div>
                 </div>
                 <div className='w-[100%] mt-[30px] w-[80%]'>
-                    <button className='bg-green rounded-[8px] h-[60px] flex items-center justify-center w-[100%] text-white uppercase'>
+                    <button className='bg-green rounded-[8px] h-[60px] flex items-center justify-center w-[100%] text-white uppercase'
+                        onClick={createAccountHandler}
+                    >
                         Create account
                     </button>
                 </div>
@@ -39,6 +69,7 @@ function Signup() {
                     </Link>
                 </div>
             </div>
+            <Toaster />
         </main>
     )
 }

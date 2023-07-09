@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import createQuizSlice from "./features/createQuiz";
+import createQuizSlice from "./features/editQuiz";
 
 
 const store = configureStore({

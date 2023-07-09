@@ -5,6 +5,7 @@ const mockQuizzes = [
 ]
 
 function WorkSpaceSideBar() {
+    return null;
     return (
         <aside className='w-[256px] h-[100vh] bg-white border-r-[1px] border-[#00000012]  flex flex-col items-center justify-center'>
             <div className='w-[90%] h-[90%]'>

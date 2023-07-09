@@ -4,9 +4,25 @@ import EmailInput from '../components/inputs/EmailInput'
 import PasswordInput from '../components/inputs/PasswordInput'
 import GoogleLogin from './googleLogin'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { invalidEmail, invalidPassword, validEmail, welcomeUser } from '../utils'
 
 function Login() {
     const [credentialLogin, setCredentialLogin] = useState({ email: '', password: '' })
+    const loginHandler = () => {
+        const { email, password } = credentialLogin;
+        if (!validEmail(email)) invalidEmail();
+        else if (password.length <= 7) invalidPassword()
+        else {
+            const status = signIn('credentials', { ...credentialLogin, redirect: false, callbackUrl: `/` });
+            status.then((res) => {
+                welcomeUser();
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+    }
+
     return (
         <main className='w-[100vw] h-[100vh] flex items-center justify-center'>
             <div className='w-[100%] h-[100%] max-w-[512px] flex justify-center items-center flex-col'>
@@ -27,7 +43,9 @@ function Login() {
                     </div>
                 </div>
                 <div className='w-[100%] mt-[30px] w-[80%]'>
-                    <button className='bg-green rounded-[8px] h-[60px] flex items-center justify-center w-[100%] text-white uppercase'>
+                    <button className='bg-green rounded-[8px] h-[60px] flex items-center justify-center w-[100%] text-white uppercase'
+                        onClick={loginHandler}
+                    >
                         Login
                     </button>
                 </div>

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.7",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.4.0",
     "@types/react": "18.2.14",
@@ -24,6 +27,8 @@
     "postcss": "8.4.25",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-query": "^3.39.3",
     "react-redux": "^8.1.1",
     "react-spinners": "^0.13.8",
     "react-tooltip": "^5.18.0",
@@ -33,6 +38,7 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
-    "@types/react-beautiful-dnd": "^13.1.4"
+    "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/validator": "^13.7.17"
   }
 }
