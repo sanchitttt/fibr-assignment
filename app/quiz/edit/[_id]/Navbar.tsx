@@ -11,6 +11,9 @@ import config from '@/app/config/config';
 import { redirect, usePathname } from 'next/navigation';
 import { Modal } from '@mui/material';
 import { PulseLoader } from 'react-spinners';
+import { successMessage } from '@/app/utils';
+import { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 function CreatePageNavbar({
     quizName, profilePicture
@@ -24,6 +27,7 @@ function CreatePageNavbar({
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [fetching, setFetching] = useState(false);
     const [publishing, setPublishing] = useState(false);
+    const router = useRouter();
 
     const publishHandler = () => {
         setPublishing(true);
@@ -102,9 +106,45 @@ function CreatePageNavbar({
             </div>
             <div className='flex justify-between items-center gap-[15px]'>
                 <button className='w-[32px] h-[32px] bg-[#e3e3e3] rounded-[4px] flex items-center justify-center pointer'
+                    data-tooltip-id="submissions" data-tooltip-content="View responses"
+                    onClick={() => {
+                        router.push(process.env.NODE_ENV === 'development' ?
+                            `http://localhost:3000/quiz/responses/${pathName}` :
+                            `https://fibrassignment/quiz/responses/${pathName}`)
+                    }}
+                >
+                    <Image
+                        src='/Submissions.svg'
+                        width={16}
+                        height={16}
+                        alt='Submissions'
+                    />
+                </button>
+                <button className='w-[32px] h-[32px] bg-[#e3e3e3] rounded-[4px] flex items-center justify-center pointer'
                     data-tooltip-id="preview" data-tooltip-content="Show preview"
+                    onClick={() => {
+                        router.push(process.env.NODE_ENV === 'development' ?
+                            `http://localhost:3000/quiz/view/${pathName}` :
+                            `https://fibrassignment/quiz/view/${pathName}`)
+                    }}
                 >
                     <EyeIcon />
+                </button>
+                <button className='w-[32px] h-[32px] bg-[#e3e3e3] rounded-[4px] flex items-center justify-center pointer'
+                    data-tooltip-id="shareLink" data-tooltip-content="Copy public quiz url"
+                    onClick={() => {
+                        if (navigator.clipboard) {
+                            const textToCopy = process.env.NODE_ENV === 'development' ?
+                                `http://localhost:3000/quiz/view/${pathName}` :
+                                `https://fibrassignment/quiz/view/${pathName}`
+                            // The text you want to copy
+
+                            // Copy the text to the clipboard
+                            navigator.clipboard.writeText(textToCopy).finally(() => successMessage('URL copied to your clipboard'))
+                        }
+                    }}
+                >
+                    🔗
                 </button>
                 <button className='bg-black text-white text-[14px] rounded-[4px] flex items-center justify-center w-[68px] h-[32px] mr-[30px]'
                     data-tooltip-id="publish" data-tooltip-content="Make your changes visible to the world"
@@ -120,6 +160,8 @@ function CreatePageNavbar({
             <Tooltip id='saveQuizName' />
             <Tooltip id='DeleteChoice' />
             <Tooltip id='DeleteQuiz' />
+            <Tooltip id='shareLink' />
+            <Tooltip id='submissions' />
             <Modal open={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}
             >
@@ -143,6 +185,7 @@ function CreatePageNavbar({
                     </div>
                 </div>
             </Modal>
+            <Toaster />
         </nav>
     )
 }

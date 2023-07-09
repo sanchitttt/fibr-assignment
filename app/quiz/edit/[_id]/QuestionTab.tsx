@@ -13,7 +13,7 @@ const spring = {
 function QuestionTab() {
     const dispatch = useAppDispatch();
     const { selectedQuestion } = useAppSelector((state) => state.createQuiz);
-    const { updateRequiredStatus, updatedMaxCharacters, updateMaxCharactersLength } = createQuizSlice.actions;
+    const { updateRequiredStatus, updatedMaxCharacters, updateMaxCharactersLength, updateCorrectChoiceInMultipleChoiceQuestion, updateCorrectChoiceInYesNoQuestion } = createQuizSlice.actions;
 
     return (
         <div className='w-[100%] flex flex-col text-[14px]'>
@@ -62,12 +62,32 @@ function QuestionTab() {
                                 <div>Correct choice</div>
                                 <select name='multipleChoice'
                                     className='py-[5px]'
+                                    value={selectedQuestion.correctChoice}
+                                    onChange={(e) => dispatch(updateCorrectChoiceInMultipleChoiceQuestion({ id: selectedQuestion.id, correctChoice: e.target.value }))}
                                 >
-                                    {selectedQuestion.choices.map((item) => {
+                                    {selectedQuestion.choices.map((item: string) => {
                                         return <option
                                             key={item}
-                                            value={selectedQuestion.correctChoice}
-                                        // onClick={() => dispatch()}
+                                            value={item}
+                                        >
+                                            {item}
+                                        </option>
+                                    })}
+                                </select>
+                            </div>
+                        }
+                        {selectedQuestion.type === 'Yes/No' &&
+                            <div className='flex justify-between w-[90%] items-center'>
+                                <div>Correct choice</div>
+                                <select name='multipleChoice'
+                                    className='py-[5px]'
+                                    value={selectedQuestion.correct}
+                                    onChange={(e) => dispatch(updateCorrectChoiceInYesNoQuestion({ id: selectedQuestion.id, correctChoice: e.target.value as 'Yes' | 'No' }))}
+                                >
+                                    {['Yes', 'No'].map((item: string) => {
+                                        return <option
+                                            key={item}
+                                            value={item}
                                         >
                                             {item}
                                         </option>

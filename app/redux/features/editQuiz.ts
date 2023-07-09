@@ -36,7 +36,7 @@ type YesNoQuestion = {
     no: string,
     correct: 'Yes' | 'No',
     type: 'Yes/No',
-    required: boolean
+    required: boolean,
 }
 
 export type Question = MultipleChoiceQuestion | ShortTextQuestion | YesNoQuestion | LongTextQuestion;
@@ -77,7 +77,8 @@ const createQuizSlice = createSlice({
                     maxCharacters: payload.payload.maxCharacters,
                     id: payload.payload.id,
                     question: payload.payload.question,
-                    type: payload.payload.type
+                    type: payload.payload.type,
+                    maxCharactersLength: 0
                 })
             }
             else if (payload.payload.type === 'Multiple Choice') {
@@ -87,11 +88,9 @@ const createQuizSlice = createSlice({
                     question: payload.payload.question,
                     type: 'Multiple Choice',
                     choices: [
-                        'Choice 1',
-                        'Choice 2',
-                        'Choice 3'
+
                     ],
-                    correctChoice: 'Choice 1'
+                    correctChoice: ''
                 })
             }
             else if (payload.payload.type === 'Yes/No') {
@@ -102,7 +101,7 @@ const createQuizSlice = createSlice({
                     type: 'Yes/No',
                     yes: payload.payload.yes,
                     no: payload.payload.no,
-                    correct: payload.payload.correct
+                    correct: payload.payload.correct,
                 })
             }
         },
@@ -216,6 +215,23 @@ const createQuizSlice = createSlice({
                         }
 
                     }
+                    break;
+                }
+            }
+        },
+        updateCorrectChoiceInYesNoQuestion(state, payload: PayloadAction<{ id: string, correctChoice: 'Yes' | 'No' }>) {
+            for (let i = 0; i < state.questions.length; i++) {
+                const item = state.questions[i];
+                if (item.id === payload.payload.id) {
+                    if (item.type === 'Yes/No') {
+                        item.correct = payload.payload.correctChoice;
+                        if (state.selectedQuestion) {
+                            if (state.selectedQuestion.type === 'Yes/No') {
+                                state.selectedQuestion.correct = payload.payload.correctChoice;
+                            }
+                        }
+                    }
+                    break;
                 }
             }
         },

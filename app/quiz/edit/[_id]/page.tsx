@@ -14,8 +14,8 @@ import { useAppDispatch, useAppSelector } from '@/app/hooks';
 function CreateForm() {
     const { data: session, status } = useSession();
     const dispatch = useAppDispatch();
-    const { broken, loading } = useAppSelector((state) => state.createQuiz);
-
+    const { broken, loading, questions } = useAppSelector((state) => state.createQuiz);
+    console.log(questions)
     useEffect(() => {
         if (session) {
             dispatch(fetchQuiz())
@@ -29,7 +29,7 @@ function CreateForm() {
     if (!session) {
         redirect('/');
     }
-    if(loading){
+    if (loading) {
         return <Loader />
     }
     if (broken) {

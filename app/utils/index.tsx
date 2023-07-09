@@ -69,3 +69,5 @@ export const accountExists = () => toast('An account with that email already exi
 export const welcomeUser = () => toast('Welcome back', successOptions);
 //@ts-ignore
 export const warningMessage = (message) => toast(message, warningOptions)
+//@ts-ignore
+export const successMessage = (message) => toast(message, successOptions)
