@@ -7,8 +7,6 @@ Fibr Quiz: Create API for a quiz app
 
 The objective is to create a restful API for a quiz app. For authentication, you can use any third party like autho or cognito if needed.
 
-Feel free to reach out to hari@getfibr.co if you have any questions
-
 Make sure you commit code to GitHub at regular intervals. Adding unit tests will be a bonus.
 Please make sure you deploy this and share the running instance, and Postman collection to verify it.
 
