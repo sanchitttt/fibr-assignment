@@ -110,7 +110,7 @@ function CreatePageNavbar({
                     onClick={() => {
                         router.push(process.env.NODE_ENV === 'development' ?
                             `http://localhost:3000/quiz/responses/${pathName}` :
-                            `https://fibrassignment/quiz/responses/${pathName}`)
+                            `https://fibr-assignment/quiz/responses/${pathName}`)
                     }}
                 >
                     <Image
@@ -125,7 +125,7 @@ function CreatePageNavbar({
                     onClick={() => {
                         router.push(process.env.NODE_ENV === 'development' ?
                             `http://localhost:3000/quiz/view/${pathName}` :
-                            `https://fibrassignment/quiz/view/${pathName}`)
+                            `https://fibr-assignment/quiz/view/${pathName}`)
                     }}
                 >
                     <EyeIcon />
@@ -136,7 +136,7 @@ function CreatePageNavbar({
                         if (navigator.clipboard) {
                             const textToCopy = process.env.NODE_ENV === 'development' ?
                                 `http://localhost:3000/quiz/view/${pathName}` :
-                                `https://fibrassignment/quiz/view/${pathName}`
+                                `https://fibr-assignment/quiz/view/${pathName}`
                             // The text you want to copy
 
                             // Copy the text to the clipboard
