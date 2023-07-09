@@ -35,6 +35,7 @@ function ViewPage() {
     useEffect(() => {
         if (data?.data) {
             const result: Answers[] = [];
+            console.log(data.data)
             maxLength = data?.data.questions.length;
             for (let i = 0; i < data?.data.questions.length; i++) {
                 const item = data?.data.questions[i];
@@ -56,7 +57,7 @@ function ViewPage() {
         }
     }, [data]);
 
-    if (isLoading || status === 'loading') {
+    if (isLoading || status === 'loading' || !data?.data) {
         return <Loader />
     }
     if (!session) {
