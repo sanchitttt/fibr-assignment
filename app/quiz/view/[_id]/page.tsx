@@ -13,7 +13,7 @@ import { useSession } from 'next-auth/react';
 
 interface Answers {
     type: 'Short Text' | 'Long Text' | 'Multiple Choice' | 'Yes/No',
-    answer: string | null
+    answer: string
 }
 
 let maxLength: number = 0;
@@ -49,7 +49,7 @@ function ViewPage() {
                     result.push({ "type": 'Multiple Choice', answer: '' })
                 }
                 if (item.type === 'Yes/No') {
-                    result.push({ "type": 'Yes/No', answer: null })
+                    result.push({ "type": 'Yes/No', answer: '' })
                 }
             }
             initialAnswersState = result;
@@ -135,8 +135,7 @@ function ViewPage() {
                         {(questions[currentQuestion].type === 'Short Text' || questions[currentQuestion].type === 'Long Text') &&
                             <textarea
                                 maxLength={questions[currentQuestion].maxCharacters ? questions[currentQuestion].maxCharactersLength : false}
-                                //@ts-ignore
-                                value={answers[currentQuestion] ? answers[currentQuestion].answer : ''}
+                                value={answers[currentQuestion] && answers[currentQuestion].answer ? answers[currentQuestion].answer : ''}
                                 className='bg-white rounded-[4px] h-[150px] mt-[15px] px-[5px] py-[10px]'
                                 placeholder='Write your answer here...'
                                 onChange={(e) => {
