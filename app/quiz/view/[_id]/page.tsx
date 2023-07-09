@@ -134,6 +134,7 @@ function ViewPage() {
                         {(questions[currentQuestion].type === 'Short Text' || questions[currentQuestion].type === 'Long Text') &&
                             <textarea
                                 maxLength={questions[currentQuestion].maxCharacters ? questions[currentQuestion].maxCharactersLength : false}
+                                //@ts-ignore
                                 value={answers[currentQuestion] ? answers[currentQuestion].answer : ''}
                                 className='bg-white rounded-[4px] h-[150px] mt-[15px] px-[5px] py-[10px]'
                                 placeholder='Write your answer here...'
